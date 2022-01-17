@@ -1,4 +1,5 @@
 import telebot
+from telebot import types
 import requests
 
 # https://rapidapi.com/community/api/open-weather-map/
@@ -8,10 +9,10 @@ bot = telebot.TeleBot("5017425940:AAEW7c0gjuZFfDXYcYxRDT-90qvk9CSMYlU")
 
 
 
-def get_weather():
+def get_current_weather(location):
 	url = "https://community-open-weather-map.p.rapidapi.com/weather"
 
-	querystring = {"lat":"0","lon":"0","lang":"ua", "units": "metric"}
+	querystring = {"lat":str(location[0]),"lon":str(location[1]),"lang":"ua", "units": "metric"}
 
 	headers = {
 	    'x-rapidapi-host': "community-open-weather-map.p.rapidapi.com",
@@ -31,10 +32,21 @@ def format_weather(weather):
 
 	'''
 
+@bot.message_handler(commands=["weather"])
+def request_weather(message):
+    keyboard = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
+    button_geo = types.KeyboardButton(text="Отправить местоположение", request_location=True)
+    keyboard.add(button_geo)
+    bot.send_message(message.chat.id, "Привет! Нажми на кнопку и передай мне свое местоположение", reply_markup=keyboard)
 
-@bot.message_handler(commands=['weather'])
+
+@bot.message_handler(content_types=["location"])
 def send_weather(message):
-	raw_weather = get_weather()
+	if message.location is not None:
+		location = (message.location.latitude, message.location.longitude)
+	else:
+		location = (0, 0)
+	raw_weather = get_current_weather(location)
 	bot.reply_to(message, format_weather(raw_weather))
 
 
