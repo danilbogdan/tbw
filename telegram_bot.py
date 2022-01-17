@@ -19,16 +19,15 @@ def get_weather():
 	    }
 
 	response = requests.request("GET", url, headers=headers, params=querystring)
-
-	return response.text
+	return response.json()
 
 
 def format_weather(weather):
 	return f'''
 	{weather["weather"][0]["description"]}
 
-	Температура: {weather["weather"][0]["main"]["temp"]}
-	Скорость ветра: {weather["weather"][0]["main"]["wind"]["speed"]}
+	Температура: {weather["main"]["temp"]}
+	Скорость ветра: {weather["wind"]["speed"]}
 
 	'''
 
