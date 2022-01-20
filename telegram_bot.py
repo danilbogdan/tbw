@@ -94,5 +94,19 @@ def handle_start(message):
                      reply_markup=keyboard)
 
 
+@bot.message_handler(content_types=['location'])
+def handle_location(message):
+    location = (message.location.latitude, message.location.longitude)
+    raw_weather = get_current_weather(location)
+    bot.send_photo(message.chat.id, get_icon_url(raw_weather), format_weather(raw_weather))
+
+
+@bot.message_handler(commands=['weather'])
+def handle_all_message(message):
+    location = (48.9483, 38.4917)
+    raw_weather = get_current_weather(location)
+    bot.send_photo(message.chat.id, get_icon_url(raw_weather), format_weather(raw_weather))
+
+
 if __name__ == '__main__':
     bot.infinity_polling()
