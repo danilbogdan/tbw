@@ -54,6 +54,33 @@ bot = telebot.TeleBot('5187725132:AAFHfAToPnKkCyeo0G43FuiZajpkMVZFxhM')
 WEATHER_API_KEY = '5b642e1561mshe54d684b73ad18bp1121c4jsn79cf637b53a1'
 
 
+def get_current_weather(location):
+    url = 'https://community-open-weather-map.p.rapidapi.com/weather'
+
+    querystring = {'lat': str(location[0]), 'lon': str(location[1]), 'lang': 'ua', 'units': 'metric'}
+
+    headers = {
+        'x-rapidapi-host': 'community-open-weather-map.p.rapidapi.com',
+        'x-rapidapi-key': WEATHER_API_KEY
+    }
+
+    response = requests.request('GET', url, headers=headers, params=querystring)
+    return response.json()
+
+
+def format_weather(weather):
+    return f'''
+	{weather['weather'][0]['description']}
+
+	Температура: {weather['main']['temp']}°
+	Швидкість вітру: {weather['wind']['speed']}
+	'''
+
+
+def get_icon_url(weather):
+    return f'https://openweathermap.org/img/wn/{weather["weather"][0]["icon"]}@4x.png'
+
+
 @bot.message_handler(commands=['start', 'help'])
 def handle_start(message):
     keyboard = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
