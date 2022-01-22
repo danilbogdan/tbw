@@ -18,7 +18,9 @@ def handle_start(message):
     command_weather = types.BotCommand('weather', 'Get weather for Sievierodonetsk')
     bot.set_my_commands(commands=[command_weather])
 
-    bot.send_message(message.chat.id, 'Привет! Нажми на кнопку или , чтобы я мог узнать погоду для тебя.',
+    bot.send_message(message.chat.id, 
+                     '''Привет! Нажми на кнопку, чтобы я мог узнать погоду для твоего местоположения 
+                     или отправь команду /weather, чтобы узнать погоду в Северодонецке.''',
                      reply_markup=keyboard)
 
 
