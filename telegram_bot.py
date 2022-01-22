@@ -3,7 +3,7 @@ import telebot
 from telebot import types
 
 WEATHER_API_KEY = '5b642e1561mshe54d684b73ad18bp1121c4jsn79cf637b53a1'
-TELEGRAM_BOT_TOKEN = '5183862802:AAGKOmPEalqEuBUt7ze9SYzJvRUPo-153AM'
+TELEGRAM_BOT_TOKEN = ''
 
 
 bot = telebot.TeleBot(TELEGRAM_BOT_TOKEN)
@@ -45,7 +45,9 @@ def handle_start(message):
     command_weather = types.BotCommand('weather', 'Get weather for Sievierodonetsk')
     bot.set_my_commands(commands=[command_weather])
 
-    bot.send_message(message.chat.id, 'Привет! Нажми на кнопку или , чтобы я мог узнать погоду для тебя.',
+    bot.send_message(message.chat.id, 
+                     '''Привет! Нажми на кнопку, чтобы я мог узнать погоду для твоего местоположения 
+                     или отправь команду /weather, чтобы узнать погоду в Северодонецке.''',
                      reply_markup=keyboard)
 
 
@@ -108,7 +110,5 @@ if __name__ == '__main__':
        "name":"London",
        "cod":200
     }
-
-    WEATHER_API_KEY = '5b642e1561mshe54d684b73ad18bp1121c4jsn79cf637b53a1'
     '''
     bot.infinity_polling()
