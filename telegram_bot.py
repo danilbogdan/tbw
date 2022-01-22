@@ -3,7 +3,7 @@ import telebot
 from telebot import types
 
 WEATHER_API_KEY = '5b642e1561mshe54d684b73ad18bp1121c4jsn79cf637b53a1'
-TELEGRAM_BOT_TOKEN = ''
+TELEGRAM_BOT_TOKEN = '5183862802:AAGKOmPEalqEuBUt7ze9SYzJvRUPo-153AM'
 
 
 bot = telebot.TeleBot(TELEGRAM_BOT_TOKEN)
@@ -57,7 +57,7 @@ def handle_location(message):
 
 
 @bot.message_handler(commands=['weather'])
-def handle_all_message(message):
+def handle_weather_for_sievier(message):
     location = (48.9483, 38.4917)
     raw_weather = get_current_weather(location)
     bot.send_photo(message.chat.id, get_icon_url(raw_weather), format_weather(raw_weather))
