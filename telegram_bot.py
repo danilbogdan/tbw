@@ -3,7 +3,7 @@ import telebot
 from telebot import types
 
 WEATHER_API_KEY = '5b642e1561mshe54d684b73ad18bp1121c4jsn79cf637b53a1'
-TELEGRAM_BOT_TOKEN = ''
+TELEGRAM_BOT_TOKEN = '5183862802:AAGKOmPEalqEuBUt7ze9SYzJvRUPo-153AM'
 
 
 bot = telebot.TeleBot(TELEGRAM_BOT_TOKEN)
@@ -46,8 +46,8 @@ def handle_start(message):
     bot.set_my_commands(commands=[command_weather])
 
     bot.send_message(message.chat.id, 
-                     '''Привет! Нажми на кнопку, чтобы я мог узнать погоду для твоего местоположения 
-                     или отправь команду /weather, чтобы узнать погоду в Северодонецке.''',
+                     'Привет! Нажми на кнопку, чтобы я мог узнать погоду для твоего местоположения ' \
+                     'или отправь команду /weather, чтобы узнать погоду в Северодонецке.',
                      reply_markup=keyboard)
 
 
